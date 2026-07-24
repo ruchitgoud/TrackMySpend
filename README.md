@@ -16,7 +16,7 @@
 
 | Landing | Tracker | Add Transaction |
 | :---: | :---: | :---: |
-| ![Landing](img width="1080" height="2400" alt="Screenshot_20260724_142932" src="https://github.com/user-attachments/assets/9754222b-3338-4637-a189-1b99c77559cf) | ![Tracker](img width="1080" height="2400" alt="Screenshot_20260724_143006" src="https://github.com/user-attachments/assets/c945a303-112d-4aa2-bf1e-5b947649dd43") | ![Add](img width="1080" height="2400" alt="Screenshot_20260724_143037" src="https://github.com/user-attachments/assets/3de57128-1d3a-4e98-b7ff-aed128c2d43a") |
+| ![Landing](<img width="1080" height="2400" alt="Screenshot_20260724_142932" src="https://github.com/user-attachments/assets/fc0fdf06-a3db-46eb-9e43-ab2367b00f45" />) | ![Tracker](<img width="1080" height="2400" alt="Screenshot_20260724_143006" src="https://github.com/user-attachments/assets/a3a03b1e-9a45-4c2b-8ff9-b02feeedd6f8" />) | ![Add](<img width="1080" height="2400" alt="Screenshot_20260724_143037" src="https://github.com/user-attachments/assets/6ad97427-18d6-4307-a8dc-3c37af09cf15" />) |
 
 ## 🛠️ Tech Stack
 - **UI**: [Jetpack Compose](https://developer.android.com/jetpack/compose)
