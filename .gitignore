@@ -17,5 +17,7 @@ local.properties
 .artifacts/
 app/release/
 assets/img.png
-gradlew
 
+# Gradle Wrapper
+gradlew
+gradlew.bat
