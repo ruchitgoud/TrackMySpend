@@ -10,13 +10,13 @@
 - **Data Portability**: Import and export your transactions via CSV to keep your data truly yours.
 - **Quick Share**: Generate and share CSV reports directly from the app.
 
-## 📸 Screenshots
+
 
 ## 📸 Screenshots
 
 | Landing | Tracker | Add Transaction |
 | :---: | :---: | :---: |
-| ![Landing](<img width="1080" height="2400" alt="Screenshot_20260724_142932" src="https://github.com/user-attachments/assets/fc0fdf06-a3db-46eb-9e43-ab2367b00f45" />) | ![Tracker](<img width="1080" height="2400" alt="Screenshot_20260724_143006" src="https://github.com/user-attachments/assets/a3a03b1e-9a45-4c2b-8ff9-b02feeedd6f8" />) | ![Add](<img width="1080" height="2400" alt="Screenshot_20260724_143037" src="https://github.com/user-attachments/assets/6ad97427-18d6-4307-a8dc-3c37af09cf15" />) |
+| ![Landing](assets/landing.png) | ![Tracker](assets/tracker.png) | ![Add](assets/transaction.png) |
 
 ## 🛠️ Tech Stack
 - **UI**: [Jetpack Compose](https://developer.android.com/jetpack/compose)
