@@ -1,6 +1,6 @@
 # TrackMySpend 💸
 
-**TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending.
+**TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending of your cash.
 
 ## ✨ Features
 
@@ -9,8 +9,6 @@
 - **Spending Summary**: Get a quick overview of your finances at a glance.
 - **Data Portability**: Import and export your transactions via CSV to keep your data truly yours.
 - **Quick Share**: Generate and share CSV reports directly from the app.
-
-
 
 ## 📸 Screenshots
 
