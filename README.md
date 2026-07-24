@@ -12,18 +12,17 @@
 
 ## 📸 Screenshots
 
+## 📸 Screenshots
+
 | Landing | Tracker | Add Transaction |
-| <img width="1080" height="2400" alt="Screenshot_20260724_142932" src="https://github.com/user-attachments/assets/b1e24711-8fed-4449-84ae-e19025cc0c81" />
+| :---: | :---: | :---: |
+| ![Landing](img width="1080" height="2400" alt="Screenshot_20260724_142932" src="https://github.com/user-attachments/assets/9754222b-3338-4637-a189-1b99c77559cf) | ![Tracker](img width="1080" height="2400" alt="Screenshot_20260724_143006" src="https://github.com/user-attachments/assets/c945a303-112d-4aa2-bf1e-5b947649dd43") | ![Add](img width="1080" height="2400" alt="Screenshot_20260724_143037" src="https://github.com/user-attachments/assets/3de57128-1d3a-4e98-b7ff-aed128c2d43a") |
 
- | :---: | :---: |
-| *(Add your screenshots here)* | *(Add your screenshots here)* | *(Add your screenshots here)* |
 ## 🛠️ Tech Stack
-
 - **UI**: [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - **Database**: [Room Persistence Library](https://developer.android.com/training/data-storage/room)
 - **Architecture**: MVVM (ViewModel, Repository, Flow)
 - **Language**: Kotlin
-
 
 
 ## 🚀 Getting Started
