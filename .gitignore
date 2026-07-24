@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Android Studio settings
+.idea/
+
+# AI Artifacts
+.artifacts/
+
+# Build outputs
+app/release/
