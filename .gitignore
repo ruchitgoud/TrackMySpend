@@ -22,3 +22,6 @@ local.properties
 
 # Build outputs
 app/release/
+
+# Specific assets to ignore
+assets/img.png
