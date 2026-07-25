@@ -1,4 +1,4 @@
-# TrackMySpend 💸
+# <img src=https://github.com/user-attachments/assets/9126c452-70cd-4014-9eb9-90d2aed482b6" width="48" height="48" valign="bottom" /> TrackMySpend
 
 **TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending.
 
@@ -34,8 +34,7 @@
 
 ## 📱 Requirements
 
-- **Minimum SDK**: API 23 (Android 6.0)
-- **Target SDK**: API 37 [![Android](https://img.shields.io/badge/Android-15%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
+[![Android](https://img.shields.io/badge/Android-15%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
 
 ---
 
