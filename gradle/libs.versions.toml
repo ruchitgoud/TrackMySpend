@@ -10,9 +10,7 @@ kotlin = "2.2.10"
 composeBom = "2026.02.01"
 room = "2.8.4"
 navigation = "2.9.8"
-ksp = "2.3.10" # Based on version_lookup, though kotlin is 2.2.10. KSP 2.3.10 might be for newer kotlin.
-# Let's try to match it or use a stable one if possible.
-# Actually let's use the one from version_lookup for now.
+ksp = "2.3.10"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,15 +29,12 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 
-# Room
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
-# Navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
-# Lifecycle (ViewModel)
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 
 [plugins]
