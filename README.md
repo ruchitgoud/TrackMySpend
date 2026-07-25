@@ -2,19 +2,25 @@
 
 **TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending.
 
+---
+
 ## ✨ Features
 
-- **Brutalist UI**: A unique, bold design language featuring high-contrast shadows, thick borders, and vibrant colors.
+- **Minimal UI**: A unique, bold design language featuring high-contrast shadows, thick borders, and vibrant colors.
 - **Local-First**: All data is stored securely on your device using a Room database. Your data never leaves your phone.
 - **Spending Summary**: Get a quick overview of your income and expenses at a glance.
 - **Data Portability**: Import and export your transactions via CSV to keep your data truly yours and easy to backup.
 - **Quick Share**: Generate and share CSV reports directly from the app via the system share sheet.
+
+---
 
 ## 📸 Screenshots
 
 | Landing | Tracker | Add Transaction |
 | :---: | :---: | :---: |
 | ![Landing](assets/landing.png) | ![Tracker](assets/tracker.png) | ![Add](assets/transaction.png) |
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -24,10 +30,14 @@
 - **Language**: Kotlin
 - **Dependency Injection**: Manual / ViewModel Factory
 
+---
+
 ## 📱 Requirements
 
 - **Minimum SDK**: API 23 (Android 6.0)
-- **Target SDK**: API 37 (Android 15)
+- **Target SDK**: API 37 [![Android](https://img.shields.io/badge/Android-15%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
+
+---
 
 ## 🚀 Getting Started
 
@@ -37,6 +47,8 @@
    ```
 2. Open the project in Android Studio (Ladybug or newer recommended).
 3. Build and run on your device or emulator!
+
+---
 
 ## 📜 License
 
