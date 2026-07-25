@@ -1,9 +1,15 @@
-## TrackMyspend <img width="32" height="32" alt="wallet" src="https://github.com/user-attachments/assets/bc672150-176b-4b1b-9335-ede40568034b" /> 
+<div align="center">
 
+<img src="https://github.com/user-attachments/assets/bc672150-176b-4b1b-9335-ede40568034b" width="90" alt="TrackMySpend Logo"/>
 
-**TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending.
+# TrackMySpend
+
+**A clean, modern expense tracking app for Android, Focuses on simplicity & speed. No accounts, no cloud-just you and your spending.**
+
+</div>
+
 > [!NOTE]
-> **Requires Android 15 or later**
+> **Requires Android 12 or later**
 >
 > 📲 **Easy Install:** No need for a special installer. Just download and install.
 
@@ -29,17 +35,36 @@
 
 ## 🛠️ Tech Stack
 
-- **UI Framework**: [Jetpack Compose](https://developer.android.com/jetpack/compose) (Material 3)
-- **Database**: [Room Persistence Library](https://developer.android.com/training/data-storage/room)
-- **Architecture**: MVVM (ViewModel, Repository, Flow)
-- **Language**: Kotlin
-- **Dependency Injection**: Manual / ViewModel Factory
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg" width="20"/> **UI Framework**: Jetpack Compose (Material 3)
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="20"/> **Database**: Room Persistence Library
+- 🏗️ **Architecture**: MVVM (ViewModel, Repository, Flow)
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" width="20"/> **Language**: Kotlin
+- ⚙️ **Dependency Injection**: Manual / ViewModel Factory
 
 ---
 
 ## 📱 Requirements
 
-[![Android](https://img.shields.io/badge/Android-15%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
+[![Android](https://img.shields.io/badge/Android-12%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
+
+---
+
+## Installation
+
+[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
+    alt="Get it on GitHub"
+    height="80">](https://github.com/ruchitgoud/TrackMySpend/releases/latest)
+
+---
+
+## 🤝 Contributions
+
+Every contribution makes TrackMySpend better!
+
+- 🐛 **Found a bug?** Raise a issue.
+- 💡 **Got an idea?** Start a discussion.
+- 🔧 **Wanna code?** Fork the repo and submit a PR!
+- 📸 **Show it off:** Share a photo of TrackMySpend on your dashboard in the Discussions tab!
 
 ---
 
@@ -60,6 +85,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Author
+## 👨‍💻 Author
 
-Built by [Ruchit Goud](https://github.com/ruchitgoud)
+<p align="left">
+  <a href="https://github.com/ruchitgoud">
+    <img src="https://img.shields.io/badge/Ruchit%20Goud-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+  </a>
+</p>
