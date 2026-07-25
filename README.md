@@ -1,4 +1,4 @@
-<img width="48" height="48" alt="wallet" src="https://github.com/user-attachments/assets/bc672150-176b-4b1b-9335-ede40568034b" /> <h2>TrackMyspend</h2>
+<img width="40" height="40" alt="wallet" src="https://github.com/user-attachments/assets/bc672150-176b-4b1b-9335-ede40568034b" /> **TrackMyspend**
 
 
 **TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending.
