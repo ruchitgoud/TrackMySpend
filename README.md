@@ -42,7 +42,8 @@
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
+
 ## 👤 Author
 
-**Ruchit Goud**
-- GitHub: [@ruchitgoud](https://github.com/ruchitgoud)
+Built by [Ruchit Goud](https://github.com/ruchitgoud)
