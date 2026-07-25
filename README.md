@@ -2,6 +2,10 @@
 
 
 **TrackMySpend** is a high-contrast, Brutalist-styled expense tracker for Android. It focuses on simplicity, speed, and data ownership. No accounts, no cloud—just you and your spending.
+> [!NOTE]
+> **Requires Android 15 or later**
+>
+> 📲 **Easy Install:** No need for a special installer. Just download and install.
 
 ---
 
