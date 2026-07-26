@@ -29,34 +29,19 @@
 
 ## 📸 Screenshots
 
-<table align="center">
-  <tr>
-    <th>Landing</th>
-    <th>Home</th>
-    <th>Add Transactions</th>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assets/landing.png" width="220" height="450" alt="Landing"/>
-    </td>
-    <td align="center">
-      <img src="assets/tracker.png" width="220" height="450" alt="Home"/>
-    </td>
-    <td align="center">
-      <img src="assets/transaction.png" width="220" height="450" alt="Add Transactions"/>
-    </td>
-  </tr>
-</table>
-
-
-## 📸 Screenshots
-
 <p align="center">
   <img src="assets/landing.png" width="220" alt="Landing"/>
   <img src="assets/tracker.png" width="220" alt="Home"/>
-  <img src="assets/transaction.png" width="220" alt="Add Transactions"/>
+  <img src="assets/transaction.png" width="220" alt="Transactions"/>
 </p>
 
+<p align="center">
+  <b>Landing</b>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Home</b>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Transactions</b>
+</p>
 
 ---
 
