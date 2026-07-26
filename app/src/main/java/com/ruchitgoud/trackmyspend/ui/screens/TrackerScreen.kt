@@ -188,24 +188,44 @@ fun TrackerHeader(onBack: () -> Unit, onExport: () -> Unit, onShare: () -> Unit,
             DropdownMenu(
                 expanded = showMenu,
                 onDismissRequest = { showMenu = false },
-                modifier = Modifier.background(BrutalistWhite)
+                modifier = Modifier
+                    .background(BrutalistWhite)
+                    .border(2.dp, BrutalistBlack, RoundedCornerShape(8.dp))
             ) {
                 DropdownMenuItem(
-                    text = { Text("Export to Storage", fontWeight = FontWeight.Bold) },
+                    text = {
+                        Text(
+                            text = "Export to Storage",
+                            fontWeight = FontWeight.Bold,
+                            color = BrutalistBlack
+                        )
+                    },
                     onClick = {
                         showMenu = false
                         onExport()
                     }
                 )
                 DropdownMenuItem(
-                    text = { Text("Share CSV", fontWeight = FontWeight.Bold) },
+                    text = {
+                        Text(
+                            text = "Share CSV",
+                            fontWeight = FontWeight.Bold,
+                            color = BrutalistBlack
+                        )
+                    },
                     onClick = {
                         showMenu = false
                         onShare()
                     }
                 )
                 DropdownMenuItem(
-                    text = { Text("Import CSV", fontWeight = FontWeight.Bold) },
+                    text = {
+                        Text(
+                            text = "Import CSV",
+                            fontWeight = FontWeight.Bold,
+                            color = BrutalistBlack
+                        )
+                    },
                     onClick = {
                         showMenu = false
                         onImport()
