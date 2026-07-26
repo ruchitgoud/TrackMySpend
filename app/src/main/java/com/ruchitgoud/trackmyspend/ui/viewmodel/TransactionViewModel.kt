@@ -74,11 +74,9 @@ class TransactionViewModel(private val repository: TransactionRepository) : View
             val txDate = Calendar.getInstance().apply { timeInMillis = tx.date }
             val isThisMonth = txDate.get(Calendar.MONTH) == currentMonth && txDate.get(Calendar.YEAR) == currentYear
 
-            // Overall Total Net
             if (tx.type == "income") totalNet += tx.amount
             else totalNet -= tx.amount
 
-            // Filtered
             if (mode == ViewMode.TOTAL || isThisMonth) {
                 if (tx.type == "income") income += tx.amount
                 else expense += tx.amount
