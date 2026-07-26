@@ -24,7 +24,6 @@ object CsvUtils {
         if (lines.isEmpty()) return emptyList()
 
         val transactions = mutableListOf<Transaction>()
-        // Skip header
         for (i in 1 until lines.size) {
             val line = lines[i].trim()
             if (line.isEmpty()) continue
