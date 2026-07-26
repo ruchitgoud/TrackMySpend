@@ -17,35 +17,74 @@
 
 ## ✨ Features
 
-- **Minimal UI**: A unique, bold design language featuring high-contrast shadows, thick borders, and vibrant colors.
-- **Local-First**: All data is stored securely on your device using a Room database. Your data never leaves your phone.
-- **Spending Summary**: Get a quick overview of your income and expenses at a glance.
-- **Data Portability**: Import and export your transactions via CSV to keep your data truly yours and easy to backup.
-- **Quick Share**: Generate and share CSV reports directly from the app via the system share sheet.
+- 💸 **Track Income & Expenses** – Easily record your daily income and spending.
+- 📊 **Spending Summary** – View your total balance, income, and expenses at a glance.
+- 💾 **Offline Storage** – All your data is securely stored on your device using Room Database.
+- 📤 **Import & Export CSV** – Backup or restore your transactions with CSV files.
+- 📱 **Share Reports** – Share your transaction reports directly from the app.
+- 🎨 **Modern Material 3 UI** – Clean, responsive, and user-friendly interface built with Jetpack Compose.
+- 🔒 **Privacy First** – Your data stays on your device and is never uploaded to any server.
 
 ---
 
 ## 📸 Screenshots
 
-| Landing | Tracker | Add Transaction |
-| :---: | :---: | :---: |
-| ![Landing](assets/landing.png) | ![Tracker](assets/tracker.png) | ![Add](assets/transaction.png) |
+<table align="center">
+<tr>
+<td align="center"><b>Landing</b></td>
+<td align="center"><b>Home</b></td>
+<td align="center"><b>Add Transactions</b></td>
+</tr>
+
+<tr>
+<td><img src="assets/landing.png" width="250"/></td>
+<td><img src="assets/tracker.png" width="250"/></td>
+<td><img src="assets/transaction.png" width="250"/></td>
+</tr>
+</table>
 
 ---
 
 ## 🛠️ Tech Stack
 
-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg" width="20"/> **UI Framework**: Jetpack Compose (Material 3)
-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="20"/> **Database**: Room Persistence Library
-- 🏗️ **Architecture**: MVVM (ViewModel, Repository, Flow)
-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" width="20"/> **Language**: Kotlin
-- ⚙️ **Dependency Injection**: Manual / ViewModel Factory
+<table align="center">
+<tr>
+<td align="center" width="180">
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" width="55"><br>
+<b>Kotlin</b><br>
+Primary Language
+
+</td>
+
+<td align="center" width="180">
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg" width="55"><br>
+<b>Jetpack Compose</b><br>
+Material 3 UI
+
+</td>
+
+<td align="center" width="180">
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="55"><br>
+<b>Room</b><br>
+Local Database
+
+</td>
+</tr>
+
+</table>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/MVVM-Architecture-blue?style=for-the-badge"/>
+</p>
 
 ---
 
 ## 📱 Requirements
 
-[![Android](https://img.shields.io/badge/Android-12%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com/)
+  <img src="https://img.shields.io/badge/Android-12%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white"/> <img src="https://img.shields.io/badge/API-31%2B-4285F4?style=for-the-badge"/>
 
 ---
 
@@ -54,6 +93,16 @@
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
     alt="Get it on GitHub"
     height="80">](https://github.com/ruchitgoud/TrackMySpend/releases/latest)
+
+
+### Install the APK
+
+1. Download the latest APK from the **Releases** page.
+2. Locate the downloaded APK in your **Downloads** folder.
+3. Tap the APK file to begin installation.
+4. If required, allow installation from unknown sources.
+5. Tap **Install**.
+6. Once installed, Tap **Open** and enjoy using **TrackMySpend**
 
 ---
 
@@ -76,6 +125,23 @@ Every contribution makes TrackMySpend better!
    ```
 2. Open the project in Android Studio (Ladybug or newer recommended).
 3. Build and run on your device or emulator!
+
+---
+
+## 📂 Project Structure
+
+```text
+TrackMySpend/
+├── 📂 app/               
+├── 📂 assets/              
+├── 📂 gradle/               
+├── 📄 .gitignore
+├── 📄 LICENSE
+├── 📄 README.md
+├── ⚙️ build.gradle.kts
+├── ⚙️ settings.gradle.kts
+└── ⚙️ gradle.properties
+```
 
 ---
 
