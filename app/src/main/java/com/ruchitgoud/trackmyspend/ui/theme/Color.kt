@@ -19,7 +19,6 @@ val BrutalistWhite = Color(0xFFFFFFFF)
 val BrutalistGray = Color(0xFF666666)
 val SoftPurple = Color(0xFFF4E8F9)
 
-// Dark Mode Palette
 val DarkBg = Color(0xFF1A1A1A)
 val DarkCard = Color(0xFF262626)
 val DarkText = Color(0xFFF5F5F5)
