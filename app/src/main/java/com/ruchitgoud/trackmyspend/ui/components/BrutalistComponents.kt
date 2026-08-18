@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,11 +40,11 @@ import com.ruchitgoud.trackmyspend.ui.theme.BrutalistWhite
 @Composable
 fun BrutalistShadowBox(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = BrutalistWhite,
-    shadowColor: Color = BrutalistBlack,
-    shadowOffset: Dp = 8.dp,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    shadowColor: Color = MaterialTheme.colorScheme.outline,
     borderWidth: Dp = 3.dp,
     cornerRadius: Dp = 24.dp,
+    shadowOffset: Dp = 8.dp,
     isPressed: Boolean = false,
     content: @Composable BoxScope.() -> Unit
 ) {
@@ -75,10 +76,11 @@ fun BrutalistButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = BrutalistWhite,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
     shadowOffset: Dp = 4.dp,
     cornerRadius: Dp = 999.dp,
-    fontWeight: FontWeight = FontWeight.Black
+    fontWeight: FontWeight = FontWeight.Black,
+    textColor: Color = BrutalistBlack
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -102,7 +104,7 @@ fun BrutalistButton(
                 text = text,
                 fontWeight = fontWeight,
                 fontSize = 18.sp,
-                color = BrutalistBlack
+                color = textColor
             )
         }
     }
@@ -111,7 +113,7 @@ fun BrutalistButton(
 @Composable
 fun BrutalistCard(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = BrutalistWhite,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
     shadowOffset: Dp = 4.dp,
     cornerRadius: Dp = 20.dp,
     onClick: (() -> Unit)? = null,
@@ -144,7 +146,7 @@ fun BrutalistCard(
 fun BrutalistIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = BrutalistWhite,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
     shadowOffset: Dp = 2.dp,
     cornerRadius: Dp = 10.dp,
     content: @Composable () -> Unit
@@ -182,8 +184,8 @@ fun BrutalistTextField(
 ) {
     BrutalistShadowBox(
         modifier = modifier,
-        backgroundColor = BrutalistWhite,
-        shadowOffset = 0.dp, // No shadow for inputs by default, or small one on focus
+        backgroundColor = if (MaterialTheme.colorScheme.background == BrutalistWhite) BrutalistWhite else MaterialTheme.colorScheme.surface,
+        shadowOffset = 0.dp,
         cornerRadius = 16.dp,
         borderWidth = 3.dp
     ) {
@@ -191,7 +193,7 @@ fun BrutalistTextField(
             if (value.isEmpty()) {
                 Text(
                     text = placeholder,
-                    color = Color.Gray,
+                    color = if (MaterialTheme.colorScheme.background == BrutalistWhite) BrutalistBlack.copy(alpha = 0.6f) else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -201,7 +203,7 @@ fun BrutalistTextField(
                 textStyle = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    color = BrutalistBlack
+                    color = if (MaterialTheme.colorScheme.background == BrutalistWhite) BrutalistBlack else MaterialTheme.colorScheme.onSurface
                 ),
                 keyboardOptions = keyboardOptions,
                 modifier = Modifier.fillMaxWidth()

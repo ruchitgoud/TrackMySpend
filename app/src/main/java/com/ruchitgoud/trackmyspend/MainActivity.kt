@@ -18,8 +18,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.ruchitgoud.trackmyspend.data.AppDatabase
+import com.ruchitgoud.trackmyspend.data.ThemePreference
 import com.ruchitgoud.trackmyspend.data.TransactionRepository
+import com.ruchitgoud.trackmyspend.data.UserPreferencesRepository
 import com.ruchitgoud.trackmyspend.ui.screens.LandingScreen
 import com.ruchitgoud.trackmyspend.ui.screens.TrackerScreen
 import com.ruchitgoud.trackmyspend.ui.theme.TrackMySpendTheme
@@ -32,22 +37,31 @@ class MainActivity : ComponentActivity() {
         
         val database = AppDatabase.getDatabase(this)
         val repository = TransactionRepository(database.transactionDao())
+        val userPreferencesRepository = UserPreferencesRepository(this)
         
         enableEdgeToEdge()
         setContent {
-            TrackMySpendTheme {
-                MainApp(repository)
+            val viewModel: TransactionViewModel = viewModel(
+                factory = TransactionViewModelFactory(repository, userPreferencesRepository)
+            )
+            val themePreference by viewModel.themePreference.collectAsState()
+            
+            val darkTheme = when (themePreference) {
+                ThemePreference.LIGHT -> false
+                ThemePreference.DARK -> true
+                ThemePreference.SYSTEM -> isSystemInDarkTheme()
+            }
+
+            TrackMySpendTheme(darkTheme = darkTheme) {
+                MainApp(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun MainApp(repository: TransactionRepository) {
+fun MainApp(viewModel: TransactionViewModel) {
     val navController = rememberNavController()
-    val viewModel: TransactionViewModel = viewModel(
-        factory = TransactionViewModelFactory(repository)
-    )
 
     NavHost(
         navController = navController,

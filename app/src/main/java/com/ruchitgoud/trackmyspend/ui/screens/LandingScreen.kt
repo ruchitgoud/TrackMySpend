@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,6 +34,7 @@ import com.ruchitgoud.trackmyspend.ui.theme.BrutalistGray
 import com.ruchitgoud.trackmyspend.ui.theme.BrutalistWhite
 import com.ruchitgoud.trackmyspend.ui.theme.Mint
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.isSystemInDarkTheme
 
 import androidx.compose.ui.tooling.preview.Preview
 import com.ruchitgoud.trackmyspend.ui.theme.TrackMySpendTheme
@@ -40,6 +42,7 @@ import com.ruchitgoud.trackmyspend.ui.theme.TrackMySpendTheme
 @Composable
 fun LandingScreen(onGetStarted: () -> Unit) {
     val scale = remember { Animatable(0f) }
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
 
     LaunchedEffect(Unit) {
         scale.animateTo(
@@ -51,7 +54,7 @@ fun LandingScreen(onGetStarted: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BrutalistWhite)
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -70,7 +73,7 @@ fun LandingScreen(onGetStarted: () -> Unit) {
                 fontWeight = FontWeight.Black,
                 textAlign = TextAlign.Center,
                 letterSpacing = (-2).sp,
-                color = BrutalistBlack
+                color = if (isDark) MaterialTheme.colorScheme.onBackground else BrutalistBlack
             )
 
             Spacer(modifier = Modifier.height(40.dp))
@@ -89,7 +92,7 @@ fun LandingScreen(onGetStarted: () -> Unit) {
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
-                color = Color(0xFF333333),
+                color = if (isDark) MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f) else BrutalistBlack,
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
         }
@@ -105,18 +108,18 @@ fun LandingScreen(onGetStarted: () -> Unit) {
                     indication = null,
                     onClick = { uriHandler.openUri("https://github.com/ruchitgoud") }
                 ),
-            backgroundColor = BrutalistWhite,
+            backgroundColor = if (isDark) MaterialTheme.colorScheme.surface else BrutalistWhite,
             shadowOffset = 2.dp,
             borderWidth = 2.dp,
             cornerRadius = 999.dp,
             isPressed = isFooterPressed,
-            shadowColor = Color(0xFFCCCCCC)
+            shadowColor = if (isDark) MaterialTheme.colorScheme.outline.copy(alpha = 0.5f) else BrutalistBlack
         ) {
             Text(
                 text = "Designed by Ruchit Goud",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                color = BrutalistGray,
+                color = if (isDark) Color.LightGray else BrutalistBlack,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
             )
         }

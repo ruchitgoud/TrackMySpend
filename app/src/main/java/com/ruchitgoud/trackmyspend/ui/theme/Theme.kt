@@ -12,20 +12,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = NeonYellow,
+    secondary = NeonPink,
+    tertiary = NeonMint,
+    background = DarkBg,
+    surface = DarkCard,
+    onPrimary = BrutalistBlack,
+    onSecondary = BrutalistWhite,
+    onTertiary = BrutalistBlack,
+    onBackground = DarkText,
+    onSurface = DarkText,
+    outline = BrutalistWhite
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+    background = BrutalistWhite,
+    surface = BrutalistWhite,
+    onBackground = BrutalistBlack,
+    onSurface = BrutalistBlack,
+    outline = BrutalistBlack
 )
+
 @Composable
 fun TrackMySpendTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // Disabled to prevent "ashy" tinting
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

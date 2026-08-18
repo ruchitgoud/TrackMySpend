@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.ruchitgoud.trackmyspend.data.Transaction
 import com.ruchitgoud.trackmyspend.data.TransactionRepository
+import com.ruchitgoud.trackmyspend.data.UserPreferencesRepository
+import com.ruchitgoud.trackmyspend.data.ThemePreference
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,10 +24,16 @@ data class TransactionSummary(
     val overallBalance: Double = 0.0
 )
 
-class TransactionViewModel(private val repository: TransactionRepository) : ViewModel() {
+class TransactionViewModel(
+    private val repository: TransactionRepository,
+    private val userPreferencesRepository: UserPreferencesRepository
+) : ViewModel() {
 
     private val _viewMode = MutableStateFlow(ViewMode.TOTAL)
     val viewMode: StateFlow<ViewMode> = _viewMode
+
+    val themePreference: StateFlow<ThemePreference> = userPreferencesRepository.themePreference
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ThemePreference.SYSTEM)
 
     val allTransactions: StateFlow<List<Transaction>> = repository.allTransactions
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -36,6 +44,12 @@ class TransactionViewModel(private val repository: TransactionRepository) : View
 
     fun toggleViewMode() {
         _viewMode.value = if (_viewMode.value == ViewMode.TOTAL) ViewMode.MONTHLY else ViewMode.TOTAL
+    }
+
+    fun setThemePreference(theme: ThemePreference) {
+        viewModelScope.launch {
+            userPreferencesRepository.setThemePreference(theme)
+        }
     }
 
     fun addTransaction(description: String, amount: Double, type: String, date: Long) {
@@ -86,11 +100,14 @@ class TransactionViewModel(private val repository: TransactionRepository) : View
     }
 }
 
-class TransactionViewModelFactory(private val repository: TransactionRepository) : ViewModelProvider.Factory {
+class TransactionViewModelFactory(
+    private val repository: TransactionRepository,
+    private val userPreferencesRepository: UserPreferencesRepository
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TransactionViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return TransactionViewModel(repository) as T
+            return TransactionViewModel(repository, userPreferencesRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
+import com.ruchitgoud.trackmyspend.data.ThemePreference
 import com.ruchitgoud.trackmyspend.data.Transaction
 import com.ruchitgoud.trackmyspend.ui.components.*
 import com.ruchitgoud.trackmyspend.ui.theme.*
@@ -39,6 +41,7 @@ import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackerScreen(
     viewModel: TransactionViewModel,
@@ -48,8 +51,11 @@ fun TrackerScreen(
     val summary by viewModel.summary.collectAsState()
     val viewMode by viewModel.viewMode.collectAsState()
     val context = LocalContext.current
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
 
     var showDeleteDialog by remember { mutableStateOf<Transaction?>(null) }
+    var showSettings by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
 
     val importLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -82,44 +88,40 @@ fun TrackerScreen(
         }
     }
 
+    val onShare = {
+        try {
+            val csvData = viewModel.getCsvData()
+            val fileName = "TrackMySpend_Transactions.csv"
+            val cacheFile = File(context.cacheDir, fileName)
+            val outputStream = FileOutputStream(cacheFile)
+            outputStream.use { it.write(csvData.toByteArray()) }
+
+            val contentUri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                cacheFile
+            )
+
+            val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/csv"
+                putExtra(Intent.EXTRA_STREAM, contentUri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            val shareIntent = Intent.createChooser(sendIntent, "Share Transactions")
+            context.startActivity(shareIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     Scaffold(
         topBar = {
             TrackerHeader(
                 onBack = onBack,
-                onExport = {
-                    saveLauncher.launch("TrackMySpend_Transactions.csv")
-                },
-                onShare = {
-                    try {
-                        val csvData = viewModel.getCsvData()
-                        val fileName = "TrackMySpend_Transactions.csv"
-                        val cacheFile = File(context.cacheDir, fileName)
-                        val outputStream = FileOutputStream(cacheFile)
-                        outputStream.use { it.write(csvData.toByteArray()) }
-
-                        val contentUri = FileProvider.getUriForFile(
-                            context,
-                            "${context.packageName}.fileprovider",
-                            cacheFile
-                        )
-
-                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                            type = "text/csv"
-                            putExtra(Intent.EXTRA_STREAM, contentUri)
-                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        }
-                        val shareIntent = Intent.createChooser(sendIntent, "Share Transactions")
-                        context.startActivity(shareIntent)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                },
-                onImport = {
-                    importLauncher.launch("text/*")
-                }
+                onOpenSettings = { showSettings = true }
             )
         },
-        containerColor = BrutalistWhite
+        containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
         Column(
             modifier = Modifier
@@ -147,6 +149,33 @@ fun TrackerScreen(
         }
     }
 
+    if (showSettings) {
+        ModalBottomSheet(
+            onDismissRequest = { showSettings = false },
+            sheetState = sheetState,
+            containerColor = MaterialTheme.colorScheme.surface,
+            shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+            dragHandle = {
+                Box(
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .size(40.dp, 4.dp)
+                        .background(
+                            if (isDark) MaterialTheme.colorScheme.outline.copy(alpha = 0.4f) else BrutalistBlack.copy(alpha = 0.2f),
+                            RoundedCornerShape(2.dp)
+                        )
+                )
+            }
+        ) {
+            SettingsSheetContent(
+                onThemeChange = { viewModel.setThemePreference(it) },
+                onImport = { importLauncher.launch("text/*"); showSettings = false },
+                onExport = { saveLauncher.launch("TrackMySpend_Transactions.csv"); showSettings = false },
+                onShare = { onShare(); showSettings = false }
+            )
+        }
+    }
+
     if (showDeleteDialog != null) {
         DeleteConfirmationDialog(
             onConfirm = {
@@ -159,8 +188,11 @@ fun TrackerScreen(
 }
 
 @Composable
-fun TrackerHeader(onBack: () -> Unit, onExport: () -> Unit, onShare: () -> Unit, onImport: () -> Unit) {
-    var showMenu by remember { mutableStateOf(false) }
+fun TrackerHeader(
+    onBack: () -> Unit,
+    onOpenSettings: () -> Unit
+) {
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
 
     Row(
         modifier = Modifier
@@ -171,73 +203,107 @@ fun TrackerHeader(onBack: () -> Unit, onExport: () -> Unit, onShare: () -> Unit,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         BrutalistIconButton(onClick = onBack) {
-            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = BrutalistBlack)
+            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = if (isDark) MaterialTheme.colorScheme.onBackground else BrutalistBlack)
         }
 
         Text(
             text = "Track My Spend",
             fontSize = 24.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = BrutalistBlack
+            color = if (isDark) MaterialTheme.colorScheme.onBackground else BrutalistBlack
         )
 
-        Box {
-            BrutalistIconButton(onClick = { showMenu = true }) {
-                Icon(Icons.Default.MoreVert, contentDescription = "Menu", tint = BrutalistBlack)
-            }
-            DropdownMenu(
-                expanded = showMenu,
-                onDismissRequest = { showMenu = false },
-                modifier = Modifier
-                    .background(BrutalistWhite)
-                    .border(2.dp, BrutalistBlack, RoundedCornerShape(8.dp))
-            ) {
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = "Export to Storage",
-                            fontWeight = FontWeight.Bold,
-                            color = BrutalistBlack
-                        )
-                    },
-                    onClick = {
-                        showMenu = false
-                        onExport()
-                    }
-                )
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = "Share CSV",
-                            fontWeight = FontWeight.Bold,
-                            color = BrutalistBlack
-                        )
-                    },
-                    onClick = {
-                        showMenu = false
-                        onShare()
-                    }
-                )
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = "Import CSV",
-                            fontWeight = FontWeight.Bold,
-                            color = BrutalistBlack
-                        )
-                    },
-                    onClick = {
-                        showMenu = false
-                        onImport()
-                    }
-                )
-            }
+        BrutalistIconButton(onClick = onOpenSettings) {
+            Icon(Icons.Default.MoreVert, contentDescription = "Settings", tint = if (isDark) MaterialTheme.colorScheme.onBackground else BrutalistBlack)
         }
     }
 }
 
 @Composable
+fun SettingsSheetContent(
+    onThemeChange: (ThemePreference) -> Unit,
+    onImport: () -> Unit,
+    onExport: () -> Unit,
+    onShare: () -> Unit
+) {
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
+    val textColor = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp)
+            .navigationBarsPadding()
+    ) {
+        Text(
+            text = "Settings",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Black,
+            color = textColor
+        )
+        
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        Text(
+            text = "Theme",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = textColor
+        )
+        
+        Spacer(modifier = Modifier.height(12.dp))
+        
+        SettingsItem(text = "Dark", onClick = { onThemeChange(ThemePreference.DARK) })
+        SettingsItem(text = "Light", onClick = { onThemeChange(ThemePreference.LIGHT) })
+        SettingsItem(text = "System", onClick = { onThemeChange(ThemePreference.SYSTEM) })
+
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider(
+            thickness = 3.dp,
+            color = if (isDark) MaterialTheme.colorScheme.outline else BrutalistBlack
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Storage",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = textColor
+        )
+        
+        Spacer(modifier = Modifier.height(12.dp))
+        
+        SettingsItem(text = "Import", onClick = onImport)
+        SettingsItem(text = "Export", onClick = onExport)
+        SettingsItem(text = "Share", onClick = onShare)
+        
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+@Composable
+fun SettingsItem(text: String, onClick: () -> Unit) {
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
+    val textColor = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack
+    
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(vertical = 12.dp)
+    ) {
+        Text(
+            text = text,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = textColor
+        )
+    }
+}
+
+@Composable
 fun SummarySection(summary: com.ruchitgoud.trackmyspend.ui.viewmodel.TransactionSummary, mode: ViewMode, onToggleMode: () -> Unit) {
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
     Column {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
             BrutalistButton(
@@ -245,7 +311,8 @@ fun SummarySection(summary: com.ruchitgoud.trackmyspend.ui.viewmodel.Transaction
                 onClick = onToggleMode,
                 shadowOffset = 2.dp,
                 cornerRadius = 10.dp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                textColor = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack
             )
         }
         
@@ -259,12 +326,14 @@ fun SummarySection(summary: com.ruchitgoud.trackmyspend.ui.viewmodel.Transaction
                 Text(
                     text = "Net ${if (mode == ViewMode.TOTAL) "Total" else "Monthly"} Balance",
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    color = BrutalistBlack
                 )
                 Text(
                     text = "₹${"%.2f".format(summary.netBalance)}",
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Black
+                    fontWeight = FontWeight.Black,
+                    color = BrutalistBlack
                 )
             }
         }
@@ -292,8 +361,8 @@ fun SummarySection(summary: com.ruchitgoud.trackmyspend.ui.viewmodel.Transaction
 fun SummaryBox(label: String, amount: Double, color: Color, modifier: Modifier = Modifier) {
     BrutalistCard(modifier = modifier, backgroundColor = color) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = label, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Text(text = "₹${"%.2f".format(amount)}", fontSize = 24.sp, fontWeight = FontWeight.Black)
+            Text(text = label, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = BrutalistBlack)
+            Text(text = "₹${"%.2f".format(amount)}", fontSize = 24.sp, fontWeight = FontWeight.Black, color = BrutalistBlack)
         }
     }
 }
@@ -305,6 +374,8 @@ fun AddTransactionForm(onAdd: (String, Double, String, Long) -> Unit) {
     var type by remember { mutableStateOf("expense") }
     var selectedDate by remember { mutableLongStateOf(System.currentTimeMillis()) }
     val context = LocalContext.current
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
+    val contentColor = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack
     
     val dateSdf = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
 
@@ -321,7 +392,7 @@ fun AddTransactionForm(onAdd: (String, Double, String, Long) -> Unit) {
     )
 
     Column {
-        Text(text = "Add New", fontSize = 22.sp, fontWeight = FontWeight.Black)
+        Text(text = "Add New", fontSize = 22.sp, fontWeight = FontWeight.Black, color = if (isDark) MaterialTheme.colorScheme.onBackground else BrutalistBlack)
         Spacer(modifier = Modifier.height(16.dp))
 
         // Date Picker Field
@@ -339,9 +410,10 @@ fun AddTransactionForm(onAdd: (String, Double, String, Long) -> Unit) {
                 Text(
                     text = dateSdf.format(Date(selectedDate)),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = contentColor
                 )
-                Icon(Icons.Default.CalendarMonth, contentDescription = "Pick Date")
+                Icon(Icons.Default.CalendarMonth, contentDescription = "Pick Date", tint = contentColor)
             }
         }
         
@@ -378,9 +450,10 @@ fun AddTransactionForm(onAdd: (String, Double, String, Long) -> Unit) {
                     Text(
                         text = type.replaceFirstChar { it.uppercase() },
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        color = contentColor
                     )
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = null)
+                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = null, tint = contentColor)
                 }
             }
         }
@@ -405,8 +478,9 @@ fun AddTransactionForm(onAdd: (String, Double, String, Long) -> Unit) {
 
 @Composable
 fun TransactionsList(transactions: List<Transaction>, onDelete: (Transaction) -> Unit) {
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
     Column {
-        Text(text = "Transactions", fontSize = 22.sp, fontWeight = FontWeight.Black)
+        Text(text = "Transactions", fontSize = 22.sp, fontWeight = FontWeight.Black, color = if (isDark) MaterialTheme.colorScheme.onBackground else BrutalistBlack)
         Spacer(modifier = Modifier.height(16.dp))
         
         if (transactions.isEmpty()) {
@@ -414,11 +488,11 @@ fun TransactionsList(transactions: List<Transaction>, onDelete: (Transaction) ->
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
-                    .border(3.dp, Color(0xFFCCCCCC), RoundedCornerShape(16.dp))
+                    .border(3.dp, if (isDark) MaterialTheme.colorScheme.outline.copy(alpha = 0.3f) else BrutalistBlack, RoundedCornerShape(16.dp))
                     .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "No transactions yet!", fontWeight = FontWeight.SemiBold, color = BrutalistGray)
+                Text(text = "No transactions yet!", fontWeight = FontWeight.SemiBold, color = if (isDark) Color.Gray else BrutalistBlack)
             }
         } else {
             transactions.forEach { tx ->
@@ -432,6 +506,7 @@ fun TransactionsList(transactions: List<Transaction>, onDelete: (Transaction) ->
 @Composable
 fun TransactionCard(transaction: Transaction, onDelete: (Transaction) -> Unit) {
     val sdf = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
     
     BrutalistCard(
         modifier = Modifier.fillMaxWidth(),
@@ -443,8 +518,8 @@ fun TransactionCard(transaction: Transaction, onDelete: (Transaction) -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = transaction.description, fontWeight = FontWeight.Black, fontSize = 18.sp)
-                Text(text = sdf.format(Date(transaction.date)), fontSize = 12.sp, color = BrutalistGray, fontWeight = FontWeight.Bold)
+                Text(text = transaction.description, fontWeight = FontWeight.Black, fontSize = 18.sp, color = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack)
+                Text(text = sdf.format(Date(transaction.date)), fontSize = 12.sp, color = if (isDark) Color.LightGray else BrutalistBlack, fontWeight = FontWeight.Bold)
             }
             
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -460,11 +535,11 @@ fun TransactionCard(transaction: Transaction, onDelete: (Transaction) -> Unit) {
                 
                 BrutalistIconButton(
                     onClick = { onDelete(transaction) },
-                    backgroundColor = BrutalistWhite,
+                    backgroundColor = if (isDark) MaterialTheme.colorScheme.surface else BrutalistWhite,
                     shadowOffset = 2.dp,
                     cornerRadius = 8.dp
                 ) {
-                    Text(text = "✕", fontWeight = FontWeight.Black, fontSize = 16.sp)
+                    Text(text = "✕", fontWeight = FontWeight.Black, fontSize = 16.sp, color = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack)
                 }
             }
         }
@@ -473,18 +548,26 @@ fun TransactionCard(transaction: Transaction, onDelete: (Transaction) -> Unit) {
 
 @Composable
 fun DeleteConfirmationDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    val isDark = MaterialTheme.colorScheme.background != BrutalistWhite
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             BrutalistButton(text = "Yes", onClick = onConfirm, backgroundColor = LightPink, shadowOffset = 3.dp, cornerRadius = 12.dp)
         },
         dismissButton = {
-            BrutalistButton(text = "No", onClick = onDismiss, backgroundColor = BrutalistWhite, shadowOffset = 3.dp, cornerRadius = 12.dp)
+            BrutalistButton(
+                text = "No",
+                onClick = onDismiss,
+                backgroundColor = if (isDark) MaterialTheme.colorScheme.surface else BrutalistWhite,
+                shadowOffset = 3.dp,
+                cornerRadius = 12.dp,
+                textColor = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack
+            )
         },
-        title = { Text(text = "Delete Transaction?", fontWeight = FontWeight.Black) },
-        text = { Text(text = "This action cannot be undone.", fontWeight = FontWeight.Bold) },
-        containerColor = BrutalistWhite,
+        title = { Text(text = "Delete Transaction?", fontWeight = FontWeight.Black, color = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack) },
+        text = { Text(text = "This action cannot be undone.", fontWeight = FontWeight.Bold, color = if (isDark) MaterialTheme.colorScheme.onSurface else BrutalistBlack) },
+        containerColor = if (isDark) MaterialTheme.colorScheme.surface else BrutalistWhite,
         shape = RoundedCornerShape(24.dp),
-        modifier = Modifier.border(3.dp, BrutalistBlack, RoundedCornerShape(24.dp))
+        modifier = Modifier.border(3.dp, if (isDark) MaterialTheme.colorScheme.outline else BrutalistBlack, RoundedCornerShape(24.dp))
     )
 }
