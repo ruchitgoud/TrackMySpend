@@ -39,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun TrackMySpendTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // Disabled to prevent "ashy" tinting
+    dynamicColor: Boolean = false, 
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
