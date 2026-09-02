@@ -15,6 +15,12 @@
 
 ---
 
+<div align="center">
+  <img width="90%" src="assets/poster1.jpg" alt="TrackMySpend showcase screenshot" />
+</div>
+
+---
+
 ## ✨ Features
 
 - 💸 **Track Income & Expenses** – Easily record your daily income and spending.
@@ -24,16 +30,6 @@
 - 📱 **Share Reports** – Share your transaction reports directly from the app.
 - 🎨 **Modern Material 3 UI** – Clean, responsive, and user-friendly interface built with Jetpack Compose.
 - 🔒 **Privacy First** – Your data stays on your device and is never uploaded to any server.
-
----
-
-## 📸 Screenshots
-
-<p align="center">
-  <img src="assets/landing.png" width="220" alt="Landing"/>
-  <img src="assets/tracker.png" width="220" alt="Home"/>
-  <img src="assets/transaction.png" width="220" alt="Transactions"/>
-</p>
 
 ---
 
@@ -80,6 +76,16 @@ Local Database
 
 ---
 
+## 📸 Screenshots
+
+<p align="center">
+  <img src="assets/landing.png" width="220" alt="Landing"/>
+  <img src="assets/tracker.png" width="220" alt="Home"/>
+  <img src="assets/transaction.png" width="220" alt="Transactions"/>
+</p>
+
+---
+
 ## Installation
 
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
@@ -106,6 +112,14 @@ Every contribution makes TrackMySpend better!
 - 💡 **Got an idea?** Start a discussion.
 - 🔧 **Wanna code?** Fork the repo and submit a PR!
 - 📸 **Show it off:** Share a photo of TrackMySpend on your dashboard in the Discussions tab!
+
+---
+
+## ⚠️ Current Issues
+
+- 🚫 **NO Money Currency Change:** Currently only (₹) Indian Rupees is displayed.
+- 🤖 **NO AI Summaries:** NO Feedback about your spendings.
+- 🗃️ **NO Category or Tags Support:** Cannot sort your spendings.
 
 ---
 
